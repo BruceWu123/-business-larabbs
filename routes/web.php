@@ -15,19 +15,19 @@
 
 Route::get('/','PagesController@root')->name('root');
 
-// Authentication Routes...
+// 身份验证 Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
 Route::post('login', 'Auth\LoginController@login');
 
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-// Registration Routes...
+// 注册登记 Routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
 Route::post('register', 'Auth\RegisterController@register');
 
-// Password Reset Routes...
+// 密码重置 Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
