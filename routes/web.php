@@ -15,6 +15,7 @@
 
 Route::get('/','PagesController@root')->name('root');
 
+
 // 身份验证 Routes...
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
@@ -36,3 +37,10 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

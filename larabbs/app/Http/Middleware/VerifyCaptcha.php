@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use \Message;
+use \Tool;
 
-class RedirectIfAuthenticated
+class VerifyCaptcha
 {
     /**
      * Handle an incoming request.
@@ -17,10 +18,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/');
+        if (!Tool::captchaCheck()) {
+            return Message::jsonMessage(Message::getErrorMessage(15019));
         }
-
         return $next($request);
     }
 }
