@@ -84,9 +84,10 @@
         var password = $("#password").val();
         var password_confirmation = $("#password-confirm").val();
         $.ajax({
-            headers: {
-                'X-XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
+                //'X-XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'
+
+                },
             type:'POST',
             url: "{{ action('Auth\RegisterController@register') }}",
             data: 'name='+name + '&email=' + email+ '&password=' + password+ '&password_confirmation=' + password_confirmation,

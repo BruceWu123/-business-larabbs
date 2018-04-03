@@ -6,6 +6,6 @@ class WapHandler
     //帐号的注册
     public function create($request)
     {
-
+        return '123';
     }
 }

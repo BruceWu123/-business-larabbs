@@ -26,7 +26,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // 注册登记 Routes...
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 
-Route::post('register', 'Auth\RegisterController@register');
+//Route::post('register', 'Auth\RegisterController@register');
 
 // 密码重置 Routes...
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -37,10 +37,6 @@ Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm
 
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-Auth::routes();
+Route::post('register', 'Auth\RegisterController@register');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
