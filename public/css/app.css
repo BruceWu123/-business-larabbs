@@ -8380,6 +8380,12 @@ body {
   margin-bottom: 60px;
 }
 
+.register-page img.captcha {
+  margin-bottom: 0px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
 .footer {
   position: absolute;
   bottom: 0;

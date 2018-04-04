@@ -1,110 +1,93 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">用户注册</div>
 
-                <div class="panel-body">
-                    {{--<form class="form-horizontal" method="POST" action="{{ route('register') }}">--}}
-                        <div class="form-horizontal">
-                        {{ csrf_field() }}
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                            {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">用户名</label>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail 地址</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" class="col-md-4 control-label">密 码</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            <div class="form-group">
+                                <label for="password-confirm" class="col-md-4 control-label">重复密码</label>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary" onclick="register()">
-                                    Register
-                                </button>
+                            <div class="form-group {{ $errors->has('captcha') ? ' has-error' : '' }}">
+                                <label for="captcha" class="col-md-4 control-label">验证码</label>
+
+                                <div class="col-md-6">
+                                    <input id="captcha" class="form-control" name="captcha" >
+
+                                    <img style="margin-bottom: 0px; margin-top: 10px;margin-left:50px;cursor: pointer;" class="thumbnail captcha" src="{{ captcha_src('flat') }}" onclick="this.src='/captcha/flat?'+Math.random()" title="点击图片重新获取验证码">
+
+                                    @if ($errors->has('captcha'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('captcha') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        注册 <i class="glyphicon glyphicon-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-<script type="text/javascript">
-    function register(){
-
-        var name = $("#name").val();
-        var email = $("#email").val();
-        var password = $("#password").val();
-        var password_confirmation = $("#password-confirm").val();
-        $.ajax({
-                //'X-XSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}'
-
-                },
-            type:'POST',
-            url: "{{ action('Auth\RegisterController@register') }}",
-            data: 'name='+name + '&email=' + email+ '&password=' + password+ '&password_confirmation=' + password_confirmation,
-            dataType: 'json', //数据类型,jsonp只能使用GET请求
-            success: function(json) {
-                console.log(json);
-                if (json.status == "200") {
-                    alert("注册成功！");
-
-                }else {
-                    modaldesc(json.msg);
-                }
-            },
-            error: function(err) {
-                alert("网络繁忙");
-            }
-        });
-    }
-</script>
 @endsection

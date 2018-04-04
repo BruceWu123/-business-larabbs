@@ -40,3 +40,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::post('register', 'Auth\RegisterController@register');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
