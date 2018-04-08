@@ -39,8 +39,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::post('register', 'Auth\RegisterController@register');
 
+//个人页面 Routes..
 
+Route::get('/users/{user}','UsersController@show')->name('users.show');
 
-Auth::routes();
+Route::get('/users/{user}/edit','UsersController@edit')->name('users.edit');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::patch('/users/{user}','UsersController@update')->name('users.update');
