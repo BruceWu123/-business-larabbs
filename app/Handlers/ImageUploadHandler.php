@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Handlers;
-use Log;
 use Image;
 
 class ImageUploadHandler{
