@@ -34,12 +34,11 @@
                 <div class="form-group">
                     <label for="" class="avatar-label">用户头像</label>
                     <input type="file" onchange="selectImage(this);" name="avatar" id="avatar" />
-
+                    @if($user->avatar)
                     <img class="thumbnail img-responsive" id="image" src="{{$user->avatar}}"  width="200"/>
-                    {{--@if($user->avatar)
-                         <br>
-                         <img class="thumbnail img-responsive" src="{{$user->avatar}}" width="200" />
-                     @endif--}}
+                    @else
+                        <img class="thumbnail img-responsive" id="image" src="https://fsdhubcdn.phphub.org/uploads/images/201709/20/1/PtDKbASVcz.png?imageView2/1/w/60/h/60"  width="200"/>
+                    @endif
 
                 </div>
 
