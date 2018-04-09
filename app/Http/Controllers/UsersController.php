@@ -29,37 +29,40 @@ class UsersController extends Controller
 
         $data = $request->all();
 
-        //log::info($data);
-
         if($request->avatar){
 
-           $result  = $uploader->save($request->avatar,'avatars',$user->id,362);
+            $result  = $uploader->save($request->avatar,'avatars',$user->id,362);
 
-           if($result){
-               $data['avatar']  =$result ['path'];
+            if($result){
+                $data['avatar']  =$result ['path'];
 
-               $oldImgPath = $result['upload_path'];
-           }
+                $oldImgPath = $result['upload_path'];
+
+            }
 
         }
 
-        //切割旧图地址获取到图片需要的信息
-        $oldImg = explode('/',$user->avatar);
+        //数据库获取旧图地址
+        $oldDataImgPath =$user->avatar;
 
-        //旧图片名称
-        $oldImgData =$oldImg[8];
+        //判断是否存在旧图，存在则删除旧图
+        if($oldDataImgPath){
 
-        //获取旧图片的绝对路径
-        $oldImgPath = $oldImgPath.'/'.$oldImgData;
+            //切割旧图地址获取到图片需要的信息
+            $oldImg = explode('/',$user->avatar);
 
-        $user->update($data);
+            //旧图片名称
+            $oldImgData =$oldImg[8];
 
-        if($user->update($data)&&$oldImgPath!=null){
+            //获取旧图片的绝对路径
+            $oldImgPath = $oldImgPath.'/'.$oldImgData;
+
             unlink($oldImgPath);
         }
 
+        $user->update($data);
+
         return redirect()->route('users.show', $user->id)->with('success', '个人资料更新成功！');
 
-        /*$user->update($request->all());*/
     }
 }

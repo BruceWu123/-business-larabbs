@@ -14,7 +14,7 @@
 
         <div class="panel-body">
 
-            <form action="{{ route('users.update', $user->id) }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
+            <form action="{{ route('users.update', $user->id) }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" >
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -33,14 +33,15 @@
 
                 <div class="form-group">
                     <label for="" class="avatar-label">用户头像</label>
-                    <input type="file" name="avatar">
+                    <input type="file" onchange="selectImage(this);" name="avatar" id="avatar" />
 
-                    @if($user->avatar)
-                        <br>
-                        <img class="thumbnail img-responsive" src="{{$user->avatar}}" width="200" />
-                    @endif
+                    <img class="thumbnail img-responsive" id="image" src="{{$user->avatar}}"  width="200"/>
+                    {{--@if($user->avatar)
+                         <br>
+                         <img class="thumbnail img-responsive" src="{{$user->avatar}}" width="200" />
+                     @endif--}}
+
                 </div>
-
 
                 <div class="well well-sm">
                     <button type="submit" class="btn btn-primary">保存</button>
@@ -49,5 +50,20 @@
         </div>
     </div>
 </div>
-
 @endsection
+<script>
+    var image = '';
+    function selectImage(file){
+        if(!file.files || !file.files[0]){
+            return;
+        }
+        var reader = new FileReader();
+        reader.onload = function(evt){
+            document.getElementById('image').src = evt.target.result;
+            image = evt.target.result;
+
+        }
+        reader.readAsDataURL(file.files[0]);
+    }
+
+</script>
