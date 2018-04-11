@@ -48,8 +48,10 @@ Route::get('/users/{user}/edit','UsersController@edit')->name('users.edit');
 Route::put('/users/{user}', 'UsersController@update')->name('users.update');
 
 //话题页面
-
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
 
 //话题页面分类
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
+
+//上传图片
+Route::post('upload_image','TopicsController@uploadImage')->name('topics.upload_image');
