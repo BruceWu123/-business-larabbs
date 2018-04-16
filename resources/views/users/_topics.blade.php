@@ -2,8 +2,8 @@
     <ul class="list-group">
         @foreach($topics as $topic)
             <li class="list-group-item">
-                <a href="{{route('topics.show',$topic->id)}}">
-                    {{$topic->title}}
+                <a href="{{ $topic->link() }}" title="{{ $topic->title }}">
+                    {{ $topic->title }}
                 </a>
 
                 <span class="meta pull-right">

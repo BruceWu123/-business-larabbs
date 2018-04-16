@@ -22,6 +22,7 @@
                     <label for="name-field">用户名</label>
                     <input class="form-control" type="text" name="name" id="name-field" value="{{ old('name', $user->name ) }}" />
                 </div>
+
                 <div class="form-group">
                     <label for="email-field">邮 箱</label>
                     <input class="form-control" type="text" name="email" id="email-field" value="{{ old('email', $user->email ) }}" />
